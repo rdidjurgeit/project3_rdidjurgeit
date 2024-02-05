@@ -1,1 +1,1 @@
-sales_row
+[int(value) for value in values]
