@@ -1,6 +1,7 @@
+from tkinter.tix import COLUMN
 import gspread
 from google.oauth2.service_account import Credentials
-from pprint import pprint
+
 
 
 SCOPE = [
@@ -81,6 +82,17 @@ def calculate_surplus_data(sales_row):
         surplus = int(stock) - sales
         surplus_data.append(surplus)
     return surplus_data
+
+def get_last_5_entries_sales():
+    """
+    Collect lest 5 entries from sales from Each Sandwich and return date as a list of list
+    """
+    columns = []
+    for ind in range(1, 7):
+        column = sales.col_values(ind)
+        columns.append(column[-5:])
+
+    return columns 
 
 
 def main():

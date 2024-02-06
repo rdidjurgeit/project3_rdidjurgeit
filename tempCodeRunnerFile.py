@@ -1,1 +1,1 @@
-[int(value) for value in values]
+sales
