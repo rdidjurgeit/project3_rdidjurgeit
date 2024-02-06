@@ -2,14 +2,14 @@
 
 #Build Player
 
-from argparse import _ActionStr, _ActionsContainer
 import random
 import time
+import math
 
 
-classTypes =["Mage", "Palading", "Rogue", "Barbarian"]
-statNames =["Attack", "Speed"," Defense","MPower", "Health"]
-# classStats =[[2,5,3,80,60],[8,6,6,60,80],[,8,10,5,0,80],[10,7,8,0,100]]
+classTypes = ["Mage", "Palading", "Rogue", "Barbarian"]
+statNames = ["Attack", "Speed"," Defense","MPower", "Health"]
+classStats = [[2, 5, 3, 80, 60],[8, 6, 6, 60, 80],[8, 10, 5, 0, 80],[10, 7, 8, 0, 100]]
 pName = ""
 pStatus =[0,0,0,0,0]
 pClass = -1
@@ -52,11 +52,12 @@ def starLine(numRows,numSleep):
     time.sleep(numSleep)
     
 
-
+    
+    
 pName = input("What is your Name\n")
 print("Welcome to the Dangeoun" +" "+ pName + "!")
 starLine(3,1)
-
+"""
 #rooms directions
 rooms = {
     'Start': {'West': 'The Maze of Madness', 'East': 'The Spider s Nest',},
@@ -89,3 +90,4 @@ def combat():
             print("You lose!")
     else:
         print("Invalid action. Try again.")
+        """
