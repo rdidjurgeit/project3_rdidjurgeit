@@ -42,9 +42,6 @@ def checkMenuRange (question,listName,isCanceable =False):
         else:
             return index
         
-value = checkMenuRange("what would you like to do?",classTypes)
-
-print(value)
 
 def starLine(numRows,numSleep):
     sLine = "*" * 10
@@ -55,5 +52,17 @@ def starLine(numRows,numSleep):
 
 
 pName = input("What is your Name\n")
-print("Welcome to the Dangeoun" + pName + "!")
+print("Welcome to the Dangeoun" +" "+ pName + "!")
 starLine(3,1)
+
+#rooms directions
+rooms = {
+    'Start': {'West': 'The Maze of Madness', 'East': 'The Spider s Nest',},
+    
+}
+
+# Tracks current room
+current_room = "Start"
+
+# Tracks last move
+msg = ""
