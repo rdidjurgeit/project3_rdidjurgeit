@@ -26,7 +26,19 @@ def intexInList(item,myList):
 def listToText(myList):
     combinedText = "\n"
     for i in range(len(myList)):
-        combinedText = combinedText + str(i) + ")" + myList[i] + "\n"
+        combinedText += str(i) + ")" + myList[i] + "\n"
     return combinedText + "\n"
 
-print(listToText(classTypes))
+def checkMenuRange (question,listName,isCanceable =False):
+    index = int(input(question + listToText(listName)))
+    while(True):
+        if(isCanceable and index == -1):
+            return index
+        elif index < 0 or index > len(listName) -1:
+            index =int(input("INvalid choice please try again \n"))
+        else:
+            return index
+        
+value = checkMenuRange("what would you like to do?",classTypes)
+
+print(value)
