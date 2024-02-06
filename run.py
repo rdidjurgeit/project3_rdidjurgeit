@@ -2,6 +2,9 @@
 
 #Build Player
 
+import time
+
+
 classTypes =["Mage", "Palading", "Rogue", "Barbarian"]
 statNames =["Attack", "Speed"," Defense","MPower", "Health"]
 # classStats =[[2,5,3,80,60],[8,6,6,60,80],[,8,10,5,0,80],[10,7,8,0,100]]
@@ -42,3 +45,15 @@ def checkMenuRange (question,listName,isCanceable =False):
 value = checkMenuRange("what would you like to do?",classTypes)
 
 print(value)
+
+def starLine(numRows,numSleep):
+    sLine = "*" * 10
+    for i in range(numRows):
+        print (sLine)
+    time.sleep(numSleep)
+    
+
+
+pName = input("What is your Name\n")
+print("Welcome to the Dangeoun" + pName + "!")
+starLine(3,1)
