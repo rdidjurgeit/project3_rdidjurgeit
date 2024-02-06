@@ -80,6 +80,13 @@ starLine(2,4)
 print("From this moment you will be know as "+pName + " The " + classTypes [pClass])
 
 
+#rooms directions
+rooms = {
+    'Start': {'West': 'The Maze of Madness', 'East': 'The Spider s Nest',},
+    'The Maze of Madness': {'North':'The Rotting Prison Cells', 'West':'The Chamber of Whispers', 'East':'Start',},
+    'The Spiders Nest': {'North':'The Torture Chamber', 'South':'The Poisonous Pit', 'West':"Start"},   
+}
+
 #Main Loop
 inGameLoop = True
 while(inGameLoop and pStats[4] > 0):
@@ -128,11 +135,7 @@ while(inGameLoop and pStats[4] > 0):
         
         
 """
-#rooms directions
-rooms = {
-    'Start': {'West': 'The Maze of Madness', 'East': 'The Spider s Nest',},
-    
-}
+#
 
 # Tracks current room
 current_room = "Start"
