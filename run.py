@@ -2,6 +2,8 @@
 
 #Build Player
 
+from argparse import _ActionStr, _ActionsContainer
+import random
 import time
 
 
@@ -66,3 +68,24 @@ current_room = "Start"
 
 # Tracks last move
 msg = ""
+
+# Define a function for combat
+def combat():
+    # Generate a random action for the opponent
+    opponent_action = random.choice(_ActionStr)
+    
+    # Let the player choose their action
+    player_action = input("Choose your action (rock/paper/scissors): ").lower()
+    
+    # Determine the outcome of the combat
+    if player_action in _ActionsContainer:
+        if (player_action == "rock" and opponent_action == "scissors") or \
+           (player_action == "paper" and opponent_action == "rock") or \
+           (player_action == "scissors" and opponent_action == "paper"):
+            print("You win!")
+        elif player_action == opponent_action:
+            print("It's a tie!")
+        else:
+            print("You lose!")
+    else:
+        print("Invalid action. Try again.")
