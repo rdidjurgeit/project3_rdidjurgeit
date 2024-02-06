@@ -15,12 +15,13 @@ pStatus = "Fine"
 pMoney = 300
 pLevel =0
 pExp = 0
-inventory =[]
-activityMenu = ["View Stats", " Explore", "Invetory"]
+inventory =["potion"]
+activityMenu = ["View Stats", " Explore", "Invetory","Vendedor"]
+itemsToBuy = [["potion", "burnHeal", "statBoost"], [100, 50, 50, 200]]
 
 
 #Check Player Sheet
-def intexInList(item,myList):
+def indexInList(item,myList):
     foundIndex = -1
     for i in range(len(myList)):
         if(item ==myList[i]):
@@ -52,8 +53,18 @@ def starLine(numRows,numSleep):
     for i in range(numRows):
         print (sLine)
     time.sleep(1)
-  
 
+
+#function inventory
+def showInvetory(inventoryList):
+    if(len(inventoryList) < 1):
+        print("Inventory is Empty! Go Explore")
+        return
+    uniqInventoryList = list(set(inventoryList))
+    for i in range(len(uniqInventoryList)):
+        print(str(i)+ ") " + uniqInventoryList[i] +"("+str(inventoryList.count(uniqInventoryList[i]))+")")
+    
+            
 pName = input("What is your Name\n")
 print("Welcome to the Dangeoun" +" "+ pName + "!")
 starLine(3,1)
@@ -75,11 +86,43 @@ while(inGameLoop and pStats[4] > 0):
     #activityMenu = ["View Stats", " Explore", "Invetory"]
     actChoice = checkMenuRange("What you will like to do? ", activityMenu)
     if( actChoice == 0):
-        print("stats")
+        print("Stats")
     elif(actChoice == 1):
         print("Explore")
     elif(actChoice == 2):
-        print("Inventory")
+        showInvetory(inventory)
+    elif(actChoice == 3):
+        while(True):
+            print("Current balance is $" +str(pMoney))
+            shopChoice = checkMenuRange("Welcome to my the Shop! My name is Mario,you like to Buy or Sell",["Buy", "Sell", "SHow Inventory"], True)
+            if shopChoice == -1:
+                break
+            elif shopChoice == 0:
+                buyChoice = checkMenuRange("What would you like to buy?", itemsToBuy[0])
+                if(pMoney - itemsToBuy[1][buyChoice] >=0):
+                    inventory.append(itemsToBuy[0][buyChoice])
+                    pMoney -= itemsToBuy[1][buyChoice]
+                else:
+                    print("Sorry you can not afford " + itemsToBuy[0][buyChoice])
+            elif shopChoice == 1:
+                if(len(inventory) > 0):
+                    itemList =list(set(inventory))
+                    showInvetory(inventory)
+                    sellChoice = checkMenuRange("What would you like to sell?", itemList)
+                    if(sellChoice != -1):
+                        itemIndex = indexInList(itemList[sellChoice], itemsToBuy[0])
+                        sellPrice = math.floor(itemsToBuy[1][itemIndex] * .9)
+                        confirmChoice = checkMenuRange("RElly?",["Yes", "No"])
+                        if confirmChoice == 0:
+                            pMoney +=sellPrice
+                            inventory.remove(itemsToBuy[0][itemIndex])
+                            print("ITem Sold balance $"+str(pMoney))
+                        else:
+                            print("Sorry you have nothing to Sell!")
+            elif shopChoice == 2:
+                showInvetory(inventory)
+        
+        
 """
 #rooms directions
 rooms = {
