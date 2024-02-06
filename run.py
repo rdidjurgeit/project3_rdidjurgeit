@@ -94,7 +94,7 @@ while(inGameLoop and pStats[4] > 0):
     elif(actChoice == 3):
         while(True):
             print("Current balance is $" +str(pMoney))
-            shopChoice = checkMenuRange("Welcome to my the Shop! My name is Mario,you like to Buy or Sell",["Buy", "Sell", "SHow Inventory"], True)
+            shopChoice = checkMenuRange("Welcome to my the Shop! My name is Mario,you like to Buy or Sell",["Buy", "Sell", "SHow Inventory", "Go Back"], True)
             if shopChoice == -1:
                 break
             elif shopChoice == 0:
@@ -121,6 +121,10 @@ while(inGameLoop and pStats[4] > 0):
                             print("Sorry you have nothing to Sell!")
             elif shopChoice == 2:
                 showInvetory(inventory)
+            elif shopChoice == 3:
+                break
+                
+
         
         
 """
