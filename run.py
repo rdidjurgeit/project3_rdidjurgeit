@@ -1,12 +1,10 @@
-
-
 #Build Player
-
 import random
 import time
 import math
 
 
+#To build Caracter
 classTypes = ["Mage", "Palading", "Rogue", "Barbarian"]
 statNames = ["Attack", "Speed"," Defense","MPower", "Health"]
 classStats = [[2, 5, 3, 80, 60],[8, 6, 6, 60, 80],[8, 10, 5, 0, 80],[10, 7, 8, 0, 100]]
@@ -18,6 +16,8 @@ pMoney = 300
 pLevel =0
 pExp = 0
 inventory =[]
+activityMenu = ["View Stats", " Explore", "Invetory"]
+
 
 #Check Player Sheet
 def intexInList(item,myList):
@@ -28,11 +28,13 @@ def intexInList(item,myList):
             break
     return foundIndex
 
+
 def listToText(myList):
     combinedText = "\n"
     for i in range(len(myList)):
         combinedText += str(i) + ")" + myList[i] + "\n"
     return combinedText + "\n"
+
 
 def checkMenuRange (question,listName,isCanceable =False):
     index = int(input(question + listToText(listName)))
@@ -49,14 +51,35 @@ def starLine(numRows,numSleep):
     sLine = "*" * 10
     for i in range(numRows):
         print (sLine)
-    time.sleep(numSleep)
-    
+    time.sleep(1)
+  
 
-    
-    
 pName = input("What is your Name\n")
 print("Welcome to the Dangeoun" +" "+ pName + "!")
 starLine(3,1)
+for i in range(len(classTypes)):
+    print(classTypes[i]+":")
+    for j in range(len(classStats[i])):
+        print(statNames[j],classStats[i][j])
+    starLine(1,2)
+pClass = checkMenuRange("Chosse your Class: ", classTypes)
+print("you have chosen " + classTypes[pClass]+"!")
+pStats = classStats[pClass]
+starLine(2,4)
+print("From this moment you will be know as "+pName + " The " + classTypes [pClass])
+
+
+#Main Loop
+inGameLoop = True
+while(inGameLoop and pStats[4] > 0):
+    #activityMenu = ["View Stats", " Explore", "Invetory"]
+    actChoice = checkMenuRange("What you will like to do? ", activityMenu)
+    if( actChoice == 0):
+        print("stats")
+    elif(actChoice == 1):
+        print("Explore")
+    elif(actChoice == 2):
+        print("Inventory")
 """
 #rooms directions
 rooms = {
