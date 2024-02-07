@@ -174,10 +174,13 @@ while inGameLoop and pStats[4] > 0:
             if direction == "Back":
                 break
             elif direction in rooms[current_room]:
-                current_room = rooms[current_room][direction]
-                msg = ""
-                if random.random() < 0.9:
-                    monsterEncounter(pStats)
+                try:
+                    current_room = rooms[current_room][direction]
+                    msg = ""
+                    if random.random() < 0.9:
+                        monsterEncounter(pStats)
+                except KeyError:
+                    msg = "You can't go that way. This room doesn't exist."
             else:
                 msg = "You can't go that way."
     elif(actChoice == 2):
