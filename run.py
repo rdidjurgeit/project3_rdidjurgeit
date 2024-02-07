@@ -54,7 +54,12 @@ def starLine(numRows,numSleep):
         print (sLine)
     time.sleep(1)
 
-
+def monsterEncounter():
+    monster_types = ["Goblin", "Skeleton", "Orc", "Zombie"]
+    monster = random.choice(monster_types)
+    print("You encountered a", monster + "!")
+    
+    
 #function inventory
 def showInvetory(inventoryList):
     if(len(inventoryList) < 1):
@@ -110,7 +115,9 @@ while inGameLoop and pStats[4] > 0:
                 break
             elif direction in rooms[current_room]:
                 current_room = rooms[current_room][direction]
-                msg = "1"
+                msg = ""
+                if random.random() < 0.9:
+                    monsterEncounter()
             else:
                 msg = "You can't go that way."
     elif(actChoice == 2):
