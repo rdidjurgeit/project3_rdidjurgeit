@@ -57,21 +57,33 @@ def starLine(numRows,numSleep):
 
 def combat(player_stats, monster_stats):
     while player_stats[4] > 0 and monster_stats[4] > 0:
-        # Player attacks
-        player_damage = max(0, player_stats[0] - monster_stats[2])
-        monster_stats[4] -= player_damage
-        print("You attack the monster for", player_damage, "damage. Monster health:", monster_stats[4])
-        if monster_stats[4] <= 0:
-            print("You defeated the monster!")
-            return True
-        # Monster attacks
-        monster_damage = max(0, monster_stats[0] - player_stats[2])
-        player_stats[4] -= monster_damage
-        print("The monster attacks you for", monster_damage, "damage. Your health:", player_stats[4])
-        if player_stats[4] <= 0:
-            print("You were defeated by the monster!")
-            return False
+        # Player's turn
+        player_action = input("Choose your action (Attack/Run): ").capitalize()
+        if player_action == "Attack":
+            player_damage = max(0, player_stats[0] - monster_stats[2])
+            monster_stats[4] -= player_damage
+            print("You attack the monster for", player_damage, "damage. Monster health:", monster_stats[4])
+            if monster_stats[4] <= 0:
+                print("You defeated the monster!")
+                return True
+        elif player_action == "Run":
+            run_chance = random.random()
+            if run_chance < 0.5:
+                print("You failed to run away!")
+            else:
+                print("You successfully ran away!")
+                return False
+        else:
+            print("Invalid action. Please choose Attack or Run.")
 
+        # Monster's turn
+        if monster_stats[4] > 0:
+            monster_damage = max(0, monster_stats[0] - player_stats[2])
+            player_stats[4] -= monster_damage
+            print("The monster attacks you for", monster_damage, "damage. Your health:", player_stats[4])
+            if player_stats[4] <= 0:
+                print("You were defeated by the monster!")
+                return False
 
 # Add combat functionality to the monsterEncounter function
 def monsterEncounter():
