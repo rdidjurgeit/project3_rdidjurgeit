@@ -55,12 +55,12 @@ def starLine(numRows,numSleep):
     time.sleep(1)
 
 
-def combat(player_stats, monster_stats):
+def combat(player_stats, monster_stats, monster_highest_stat_index):
     while player_stats[4] > 0 and monster_stats[4] > 0:
         # Player's turn
         player_action = input("Choose your action (Attack/Run): ").capitalize()
         if player_action == "Attack":
-            player_damage = max(0, player_stats[0] - monster_stats[2])
+            player_damage = max(0, player_stats[monster_highest_stat_index] - monster_stats[monster_highest_stat_index])  # Compare player's attack with monster's highest stat
             monster_stats[4] -= player_damage
             print("You attack the monster for", player_damage, "damage. Monster health:", monster_stats[4])
             if monster_stats[4] <= 0:
@@ -70,15 +70,16 @@ def combat(player_stats, monster_stats):
             run_chance = random.random()
             if run_chance < 0.5:
                 print("You failed to run away!")
+                return False
             else:
                 print("You successfully ran away!")
-                return False
+                return None  # Return None to indicate successful escape
         else:
             print("Invalid action. Please choose Attack or Run.")
 
         # Monster's turn
         if monster_stats[4] > 0:
-            monster_damage = max(0, monster_stats[0] - player_stats[2])
+            monster_damage = max(0, monster_stats[monster_highest_stat_index] - player_stats[monster_highest_stat_index])  # Compare monster's highest stat with player's corresponding stat
             player_stats[4] -= monster_damage
             print("The monster attacks you for", monster_damage, "damage. Your health:", player_stats[4])
             if player_stats[4] <= 0:
@@ -86,18 +87,37 @@ def combat(player_stats, monster_stats):
                 return False
 
 # Add combat functionality to the monsterEncounter function
-def monsterEncounter():
+def monsterEncounter(player_stats):
     monster_types = ["Goblin", "Skeleton", "Orc", "Zombie"]
     monster = random.choice(monster_types)
     print("You encountered a", monster + "!")
-    # Initialize monster stats
+    # Randomize monster stats
     monster_stats = [random.randint(3, 10) for _ in range(5)]
+    # Ensure the highest stat determines the combat comparison
+    monster_highest_stat_index = monster_stats.index(max(monster_stats[:-1]))  # Find the index of the highest stat excluding health
+    print(f"Monster's highest stat is at index {monster_highest_stat_index}: {monster_stats[monster_highest_stat_index]}")
     print("Monster Stats: Attack:", monster_stats[0], "Speed:", monster_stats[1], "Defense:", monster_stats[2], "MPower:", monster_stats[3], "Health:", monster_stats[4])
-    combat_result = combat(pStats, monster_stats)
-    if combat_result:
+    
+    # Set the player's highest stat index based on the monster's highest stat index
+    if monster_highest_stat_index == 0:
+        player_highest_stat_index = 2  # Defense
+    elif monster_highest_stat_index == 1:
+        player_highest_stat_index = 3  # MPower
+    elif monster_highest_stat_index == 2:
+        player_highest_stat_index = 0  # Attack
+    elif monster_highest_stat_index == 3:
+        player_highest_stat_index = 1  # Speed
+    
+    print(f"Player's highest stat index is set to {player_highest_stat_index}: {player_stats[player_highest_stat_index]}")
+    
+    # Store player's highest stat index for use in combat
+    combat_result = combat(player_stats, monster_stats, player_highest_stat_index)
+    if combat_result is True:
         print("You emerge victorious!")
-    else:
+    elif combat_result is False:
         print("Game over!")
+    else:
+        print("You return to the previous room.")
 
 
 #function inventory
@@ -157,7 +177,7 @@ while inGameLoop and pStats[4] > 0:
                 current_room = rooms[current_room][direction]
                 msg = ""
                 if random.random() < 0.9:
-                    monsterEncounter()
+                    monsterEncounter(pStats)
             else:
                 msg = "You can't go that way."
     elif(actChoice == 2):
@@ -195,36 +215,3 @@ while inGameLoop and pStats[4] > 0:
             elif shopChoice == 3:
                 break
                 
-
-        
-        
-"""
-#
-
-# Tracks current room
-current_room = "Start"
-
-# Tracks last move
-msg = ""
-
-# Define a function for combat
-def combat():
-    # Generate a random action for the opponent
-    opponent_action = random.choice(_ActionStr)
-    
-    # Let the player choose their action
-    player_action = input("Choose your action (rock/paper/scissors): ").lower()
-    
-    # Determine the outcome of the combat
-    if player_action in _ActionsContainer:
-        if (player_action == "rock" and opponent_action == "scissors") or \
-           (player_action == "paper" and opponent_action == "rock") or \
-           (player_action == "scissors" and opponent_action == "paper"):
-            print("You win!")
-        elif player_action == opponent_action:
-            print("It's a tie!")
-        else:
-            print("You lose!")
-    else:
-        print("Invalid action. Try again.")
-        """
