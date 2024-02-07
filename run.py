@@ -153,7 +153,10 @@ print("From this moment you will be know as "+pName + " The " + classTypes [pCla
 rooms = {
     'Start': {'West': 'The Maze of Madness', 'East': 'The Spiders Nest',},
     'The Maze of Madness': {'North':'The Rotting Prison Cells', 'West':'The Chamber of Whispers', 'East':'Start',},
-    'The Spiders Nest': {'North':'The Torture Chamber', 'South':'The Poisonous Pit', 'West':"Start"},   
+    'The Spiders Nest': {'North':'The Torture Chamber', 'South':'The Poisonous Pit', 'West':"Start"},
+    'The Poisonous Pit': {'North':'The Spiders Nest', 'East':'The Ghoul-infested Crypt'},
+    'The Ghoul-infested Crypt': {'West':'The Poisonous Pit'},
+        
 }
 
 
