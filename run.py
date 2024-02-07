@@ -16,7 +16,7 @@ pMoney = 300
 pLevel =0
 pExp = 0
 inventory =["potion"]
-activityMenu = ["View Stats", " Explore", "Invetory","Vendedor"]
+activityMenu = ["View Stats", "Explore", "Invetory","Vendedor"]
 itemsToBuy = [["potion", "burnHeal", "statBoost"], [100, 50, 50, 200]]
 
 
@@ -97,7 +97,7 @@ msg=""
 #Main Loop
 inGameLoop = True
 while inGameLoop and pStats[4] > 0:
-    # Activity Menu = ["View Stats", " Explore", "Inventory", "Vendedor"]
+    # Activity Menu = ["View Stats", "Explore", "Inventory", "Vendedor"]
     actChoice = checkMenuRange("What would you like to do? ", activityMenu)
     if actChoice == 0:
         print("Stats")
