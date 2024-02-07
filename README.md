@@ -1,32 +1,166 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+The Ideia of this Game is an adventure text base game with multiple rooms where you can navigate the rooms in true Cardinal direction and you end up fighting monster.
 
-Welcome,
+ [Link for Game](https://project3-rdidjurgeit-d227d31817aa.herokuapp.com/)
+## Table of Contents
+1. <details open>
+    <summary><a href="#ux">UX</a></summary>
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **March 14, 2023**
+    <ul>
+    <li><details>
+    <summary><a href="#concept">Concept</a></summary>
+    </details></li>
 
-## Reminders
+    <li><details>
+    <summary><a href="#goals">Goals</a></summary>
 
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
+    - [Visitor Goals](#visitor-goals)
+    </details></li>
 
-## Creating the Heroku app
+    <li><details>
+    <summary><a href="#visual-design">Visual Design</a></summary>
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+    - [Images](#images)
+    </details></li>
+    </ul>
+</details>
+2. <details open>
+    <summary><a href="#features">Features</a></summary>
+</details>
 
-1. `heroku/python`
-2. `heroku/nodejs`
+3. <details open>
+    <summary><a href="#technologies-used">Technologies Used</a></summary>
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+    - [Languages](#languages)
+    - [Platforms](#platforms)
+    - [Other Tools](#other-tools)
+</details>
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+4. <details open>
+    <summary><a href="#testing">Testing</a></summary>
 
-Connect your GitHub repository and deploy as normal.
+    <ul>
+    <li><details>
+    <summary><a href="#methods">Methods</a></summary>
 
-## Constraints
+    - [Validation](#validation)
+    - [General Testing](#general-testing)
+    - [Mobile Testing](#mobile-testing)
+    - [Desktop Testing](#desktop-testing)
+    </details></li>
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+    <li><details>
+    <summary><a href="#bugs">Bugs</a></summary>
 
+    - [Known Bugs](#known-bugs)
+    </details></li>
+    </ul>
+</details>
+
+5. <details open>
+    <summary><a href="#deployment">Deployment</a></summary>
+
+    <ul>
+    <li><details>
+    <summary><a href="#local-deployment">Local Deployment</a></summary>
+
+    - [Local Preparation](#local-preparation)
+    </details></li>
+
+    <li><details>
+    <summary><a href="#github-deployment">Github Deployment</a></summary>
+
+    - [Github Preparation](#github-preparation)
+    </details></li>
+    </ul>
+</details>
+
+6. <details open>
+    <summary><a href="#credit-and-contact">Credit and Contact</a></summary>
+
+    - [Credit](#credits)
+    - [Contact](#contact)
+</details>
+
+----
+
+# UX
+
+### Concept
+
+The ideia is a adventure Game with a turn base combat where the monster are generate and the stats are also random
+
+## Goals
+
+### Visitor Goals
+The target audience :
+
+- Nerd that like RPG
+- People that want to know a bit more what is RPG
+
+### User goals are
+
+- Convert people to play more RPG
+
+# Visual Design
+
+### Images
+
+- The Map for better See the dungeon.
+<div align="center">
+  <img src="Screenshot 2024-02-07 025308.png" alt="Map of the dungeon">
+</div>
+
+----
+
+# Features
+
+## Feature Ideas
+- In time all the rooms will be complete where you will be able to have exp and lvl up.
+
+
+
+# Technologies Used
+
+## Languages
+
+- [Python]
+    * Running function for interactive.
+
+## Platforms
+- [Github](https://github.com/)
+    * Storing code remotely and deployment.
+- [Heroku](https://dashboard.heroku.com/)
+    * for Deployment .
+
+## Other Tools
+- [Visual Studio Code](https://code.visualstudio.com/)
+    * To create. 
+    * Extension: Code Spell Checker;Prettier; Live Server,ESlint,Node.js,PowerShell
 ---
+# Testing
 
-Happy coding!
+## Methods
+-use the terminal for print() and debug
+
+## Bugs
+
+----
+
+# Deployment
+## Local Deployment
+### Local Preparation
+**Requirements:**
+- An IDE of your choice, such as [Visual Studio Code](https://code.visualstudio.com/)
+- [Git](https://git-scm.com/)
+- You will have to set up a connection with an email
+
+## Credits and Contact
+### Credits
+- THe initial code was take as exemple from the Youtuber  [Tez Fraser](https://www.youtube.com/@TezFraser).
+
+- For some question about the code and underspending ,Chat GBT was use 
+
+- Readme example provide by my mentor Patrick Rory.
+
+### Contact
+Please feel free to contact me at `didjurgeit.raphael@gmail.com`
