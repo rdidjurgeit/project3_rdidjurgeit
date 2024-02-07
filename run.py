@@ -70,7 +70,6 @@ def combat(player_stats, monster_stats, monster_highest_stat_index):
             run_chance = random.random()
             if run_chance < 0.5:
                 print("You failed to run away!")
-                return False
             else:
                 print("You successfully ran away!")
                 return None  # Return None to indicate successful escape
