@@ -87,15 +87,32 @@ rooms = {
     'The Spiders Nest': {'North':'The Torture Chamber', 'South':'The Poisonous Pit', 'West':"Start"},   
 }
 
+
+current_room ="Start"
+
+#Resolt of the last move
+msg=""
+
+
 #Main Loop
 inGameLoop = True
-while(inGameLoop and pStats[4] > 0):
-    #activityMenu = ["View Stats", " Explore", "Invetory"]
-    actChoice = checkMenuRange("What you will like to do? ", activityMenu)
-    if( actChoice == 0):
+while inGameLoop and pStats[4] > 0:
+    # Activity Menu = ["View Stats", " Explore", "Inventory", "Vendedor"]
+    actChoice = checkMenuRange("What would you like to do? ", activityMenu)
+    if actChoice == 0:
         print("Stats")
-    elif(actChoice == 1):
-        print("Explore")
+    elif actChoice == 1:
+        while True:
+            print("You are in the", current_room)
+            print(msg)
+            direction = input("Enter the direction you want to go (North/South/East/West), or type 'Go Back' to return to the main menu: ").capitalize()
+            if direction == "Go Back":
+                break
+            elif direction in rooms[current_room]:
+                current_room = rooms[current_room][direction]
+                msg = ""
+            else:
+                msg = "You can't go that way."
     elif(actChoice == 2):
         showInvetory(inventory)
     elif(actChoice == 3):
