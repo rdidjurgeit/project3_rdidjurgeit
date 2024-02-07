@@ -86,7 +86,7 @@ def combat(player_stats, monster_stats, monster_highest_stat_index):
                 return False
 
 # Add combat functionality to the monsterEncounter function
-def monsterEncounter(player_stats):
+def monsterEncounter(player_stats, current_room):
     monster_types = ["Goblin", "Skeleton", "Orc", "Zombie"]
     monster = random.choice(monster_types)
     print("You encountered a", monster + "!")
@@ -116,7 +116,12 @@ def monsterEncounter(player_stats):
     elif combat_result is False:
         print("Game over!")
     else:
-        print("You return to the previous room.")
+        print("You successfully ran away!")
+        # Return None if the player successfully escapes
+        return None
+
+    # Return the current room if the player is defeated
+    return current_room
 
 
 #function inventory
@@ -177,7 +182,11 @@ while inGameLoop and pStats[4] > 0:
                     current_room = rooms[current_room][direction]
                     msg = ""
                     if random.random() < 0.9:
-                        monsterEncounter(pStats)
+                        # Pass the current room to the monsterEncounter function
+                        result = monsterEncounter(pStats, current_room)
+                        if result is None:
+                            # If the player successfully ran away, move to a random room
+                            current_room = random.choice(list(rooms.keys()))
                 except KeyError:
                     msg = "You can't go that way. This room doesn't exist."
             else:
