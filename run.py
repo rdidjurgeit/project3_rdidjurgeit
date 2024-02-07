@@ -6,7 +6,7 @@ import math
 
 #To build Caracter
 classTypes = ["Mage", "Palading", "Rogue", "Barbarian"]
-statNames = ["Attack", "Speed"," Defense","MPower", "Health"]
+statNames = ["Attack", "Speed","Defense","MPower", "Health"]
 classStats = [[2, 5, 3, 80, 60],[8, 6, 6, 60, 80],[8, 10, 5, 0, 80],[10, 7, 8, 0, 100]]
 pName = ""
 pStatus =[0,0,0,0,0]
@@ -82,7 +82,7 @@ print("From this moment you will be know as "+pName + " The " + classTypes [pCla
 
 #rooms directions
 rooms = {
-    'Start': {'West': 'The Maze of Madness', 'East': 'The Spider s Nest',},
+    'Start': {'West': 'The Maze of Madness', 'East': 'The Spiders Nest',},
     'The Maze of Madness': {'North':'The Rotting Prison Cells', 'West':'The Chamber of Whispers', 'East':'Start',},
     'The Spiders Nest': {'North':'The Torture Chamber', 'South':'The Poisonous Pit', 'West':"Start"},   
 }
@@ -110,7 +110,7 @@ while inGameLoop and pStats[4] > 0:
                 break
             elif direction in rooms[current_room]:
                 current_room = rooms[current_room][direction]
-                msg = ""
+                msg = "1"
             else:
                 msg = "You can't go that way."
     elif(actChoice == 2):
