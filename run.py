@@ -105,8 +105,8 @@ while inGameLoop and pStats[4] > 0:
         while True:
             print("You are in the", current_room)
             print(msg)
-            direction = input("Enter the direction you want to go (North/South/East/West), or type 'Go Back' to return to the main menu: ").capitalize()
-            if direction == "Go Back":
+            direction = input("Enter the direction you want to go (North/South/East/West), or type 'Back' to return to the main menu: ").capitalize()
+            if direction == "Back":
                 break
             elif direction in rooms[current_room]:
                 current_room = rooms[current_room][direction]
