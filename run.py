@@ -7,7 +7,7 @@ import math
 #To build Caracter
 classTypes = ["Mage", "Palading", "Rogue", "Barbarian"]
 statNames = ["Attack", "Speed","Defense","MPower", "Health"]
-classStats = [[2, 5, 3, 80, 60],[8, 6, 6, 60, 80],[8, 10, 5, 0, 80],[10, 7, 8, 0, 100]]
+classStats = [[2, 5, 4, 80, 60],[8, 6, 6, 60, 80],[8, 12, 5, 0, 80],[10, 7, 8, 0, 100]]
 pName = ""
 pStatus =[0,0,0,0,0]
 pClass = -1
@@ -100,13 +100,13 @@ def monsterEncounter(player_stats):
     
     # Set the player's highest stat index based on the monster's highest stat index
     if monster_highest_stat_index == 0:
-        player_highest_stat_index = 2  # Defense
-    elif monster_highest_stat_index == 1:
-        player_highest_stat_index = 3  # MPower
-    elif monster_highest_stat_index == 2:
         player_highest_stat_index = 0  # Attack
-    elif monster_highest_stat_index == 3:
+    elif monster_highest_stat_index == 1:
         player_highest_stat_index = 1  # Speed
+    elif monster_highest_stat_index == 2:
+        player_highest_stat_index = 2  # Defense
+    elif monster_highest_stat_index == 3:
+        player_highest_stat_index = 3  # Mpower
     
     print(f"Player's highest stat index is set to {player_highest_stat_index}: {player_stats[player_highest_stat_index]}")
     
