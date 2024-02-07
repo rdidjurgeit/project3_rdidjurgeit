@@ -54,12 +54,40 @@ def starLine(numRows,numSleep):
         print (sLine)
     time.sleep(1)
 
+
+def combat(player_stats, monster_stats):
+    while player_stats[4] > 0 and monster_stats[4] > 0:
+        # Player attacks
+        player_damage = max(0, player_stats[0] - monster_stats[2])
+        monster_stats[4] -= player_damage
+        print("You attack the monster for", player_damage, "damage. Monster health:", monster_stats[4])
+        if monster_stats[4] <= 0:
+            print("You defeated the monster!")
+            return True
+        # Monster attacks
+        monster_damage = max(0, monster_stats[0] - player_stats[2])
+        player_stats[4] -= monster_damage
+        print("The monster attacks you for", monster_damage, "damage. Your health:", player_stats[4])
+        if player_stats[4] <= 0:
+            print("You were defeated by the monster!")
+            return False
+
+
+# Add combat functionality to the monsterEncounter function
 def monsterEncounter():
     monster_types = ["Goblin", "Skeleton", "Orc", "Zombie"]
     monster = random.choice(monster_types)
     print("You encountered a", monster + "!")
-    
-    
+    # Initialize monster stats
+    monster_stats = [random.randint(3, 10) for _ in range(5)]
+    print("Monster Stats: Attack:", monster_stats[0], "Speed:", monster_stats[1], "Defense:", monster_stats[2], "MPower:", monster_stats[3], "Health:", monster_stats[4])
+    combat_result = combat(pStats, monster_stats)
+    if combat_result:
+        print("You emerge victorious!")
+    else:
+        print("Game over!")
+
+
 #function inventory
 def showInvetory(inventoryList):
     if(len(inventoryList) < 1):
@@ -68,8 +96,8 @@ def showInvetory(inventoryList):
     uniqInventoryList = list(set(inventoryList))
     for i in range(len(uniqInventoryList)):
         print(str(i)+ ") " + uniqInventoryList[i] +"("+str(inventoryList.count(uniqInventoryList[i]))+")")
-    
-            
+
+
 pName = input("What is your Name\n")
 print("Welcome to the Dangeoun" +" "+ pName + "!")
 starLine(3,1)
