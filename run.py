@@ -153,6 +153,11 @@ def starLine(numRows, numSleep):
     time.sleep(numSleep)
 
 
+# -----------------------------------
+# Inventory Interaction Functions
+# -----------------------------------
+
+
 def showInvetory(inventory_list):
     """Show the player's inventory, or inform if empty."""
     if len(inventory_list) < 1:
@@ -163,6 +168,70 @@ def showInvetory(inventory_list):
         count = inventory_list.count(item)
         print(f"{i}) {item} (x{count})")
 
+
+def useItem(inventory, player_stats):
+    """Allow the player to select and use an item from their inventory."""
+    if len(inventory) < 1:
+        print("You have no items to use!")
+        return
+
+    # Show inventory and let the player choose an item to use
+    print("Select an item to use:")
+    uniq_inventory = list(set(inventory))
+    for i, item in enumerate(uniq_inventory):
+        count = inventory.count(item)
+        print(f"{i}) {item} (x{count})")
+
+    choice = input("Enter the number of the item to use or press Enter to cancel: ").strip()
+    if choice == "":
+        print("No item used.")
+        return
+    if not choice.isdigit():
+        print("Invalid input. No item used.")
+        return
+
+    index = int(choice)
+    if index < 0 or index >= len(uniq_inventory):
+        print("Invalid choice. No item used.")
+        return
+
+    item_to_use = uniq_inventory[index]
+    # Apply the effect of the chosen item
+    applyItemEffect(item_to_use, player_stats, inventory)
+
+
+def applyItemEffect(item_name, player_stats, inventory):
+    """Apply the effect of the chosen item to the player."""
+    # Remove one instance of the item from inventory
+    inventory.remove(item_name)
+
+    if item_name == "potion":
+        # Heals HP by random 1-12
+        heal_amount = random.randint(1, 12)
+        player_stats[4] += heal_amount
+        print(f"You used a {item_name} and recovered {heal_amount} HP!")
+        print(f"Your Health is now {player_stats[4]}.")
+
+    elif item_name == "burnHeal":
+        # Also heals HP by random 1-12 (you can differentiate if you like)
+        heal_amount = random.randint(1, 12)
+        player_stats[4] += heal_amount
+        print(f"You used a {item_name} and recovered {heal_amount} HP!")
+        print(f"Your Health is now {player_stats[4]}.")
+
+    elif item_name == "statBoost":
+        # Increase one random stat (Attack, Speed, Defense, Health) by 1
+        # MPower (index 3) won't be boosted as requested
+        possible_stats = [0, 1, 2, 4]  # Attack, Speed, Defense, Health
+        chosen_stat = random.choice(possible_stats)
+        player_stats[chosen_stat] += 1
+        print(f"You used a {item_name}! Your {statNames[chosen_stat]} increased by 1!")
+        # Show new stats
+        print("Your updated stats:")
+        for i, stat in enumerate(statNames):
+            print(f"{stat}: {player_stats[i]}")
+    else:
+        print("This item has no effect.")
 
 # -----------------------------------
 # Combat Mechanics
@@ -345,6 +414,7 @@ while inGameLoop and pStats[4] > 0:
         print("Your Stats:")
         for i, stat in enumerate(statNames):
             print(f"{stat}: {pStats[i]}")
+
     elif actChoice == 1:
         # Explore
         while True:
@@ -362,15 +432,34 @@ while inGameLoop and pStats[4] > 0:
                     if random.random() < 0.9:
                         result = monsterEncounter(pStats, current_room)
                         if result is None:
-                            # If player ran away, teleport to random room
+                            # If player successfully ran away, teleport to random room
                             current_room = random.choice(list(rooms.keys()))
                 except KeyError:
                     msg = "You can't go that way."
             else:
                 msg = "You can't go that way."
+
     elif actChoice == 2:
-        # Inventory
-        showInvetory(inventory)
+        # Inventory Menu
+        while True:
+            print("\n--- Inventory Menu ---")
+            print("1) Show Inventory")
+            print("2) Use an Item")
+            print("3) Go Back")
+            inv_choice = input("Enter your choice: ").strip()
+
+            if inv_choice == "1":
+                # Show Inventory
+                showInvetory(inventory)
+            elif inv_choice == "2":
+                # Use an Item
+                useItem(inventory, pStats)
+            elif inv_choice == "3":
+                # Go back to main menu
+                break
+            else:
+                print("Invalid choice. Please select 1, 2, or 3.")
+
     elif actChoice == 3:
         # Vendor
         pMoney = vendor_menu(pStats, pMoney, inventory)
