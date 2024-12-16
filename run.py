@@ -151,12 +151,22 @@ print("From this moment you will be know as "+pName + " The " + classTypes [pCla
 
 #rooms directions
 rooms = {
-    'Start': {'West': 'The Maze of Madness', 'East': 'The Spiders Nest',},
-    'The Maze of Madness': {'North':'The Rotting Prison Cells', 'West':'The Chamber of Whispers', 'East':'Start',},
-    'The Spiders Nest': {'North':'The Torture Chamber', 'South':'The Poisonous Pit', 'West':"Start"},
-    'The Poisonous Pit': {'North':'The Spiders Nest', 'East':'The Ghoul-infested Crypt'},
-    'The Ghoul-infested Crypt': {'West':'The Poisonous Pit'},
-        
+          'Start': {'West': 'The Maze of Madness', 'East': 'The Spiders Nest'},
+            'The Spiders Nest': {'West': 'Start', 'North': 'The Torture Chamber', 'South': 'The Poisonous Pit'},
+            'The Poisonous Pit': {'North': 'The Spiders Nest', 'East': 'The Ghouls-infested Crypt'},
+            'The Ghouls-infested Crypt': {'West': 'The Poisonous Pit'},
+            'The Torture Chamber': {'West': 'Boss', 'North': 'The Shadowy Hallway', 'East': 'The Ominous Altar Room', 'South': 'The Spiders Nest'},
+            'The Ominous Altar Room': {'West': 'The Torture Chamber', 'North': 'The Bone-strewn Catacombs'},
+            'The Bone-strewn Catacombs': {'South': 'The Ominous Altar Room', 'West': 'The Shadowy Hallway'},
+            'The Shadowy Hallway': {'West': 'The Abyssal Abyss', 'South': 'The Torture Chamber'},
+            'The Abyssal Abyss': {'West': 'The Chamber of Eternal Darkness', 'East': 'The Shadowy Hallway', 'South': 'Boss'},
+            'The Chamber of Eternal Darkness': {'West': 'The Riddle-filled Chamber', 'East': 'The Abyssal Abyss', 'South': 'The Rotting Prison Cells'},
+            'The Riddle-filled Chamber': {'East': 'The Chamber of Eternal Darkness', 'South': 'The Cursed Well Room'},
+            'The Cursed Well Room': {'North': 'The Riddle-filled Chamber', 'South': 'The Chamber of Whispers', 'East': 'The Rotting Prison Cells'},
+            'The Chamber of Whispers': {'North': 'The Cursed Well Room', 'East': 'The Maze of Madness'},
+            'The Rotting Prison Cells': {'West': 'The Cursed Well Room', 'North': 'The Chamber of Eternal Darkness', 'East': 'Boss', 'South': 'The Maze of Madness'},
+            'The Maze of Madness': {'West': 'The Chamber of Whispers', 'North': 'The Rotting Prison Cells', 'East': 'Start'},
+            'Boss': {'West': 'The Rotting Prison Cells', 'North': 'The Abyssal Abyss', 'East': 'The Torture Chamber'}
 }
 
 
