@@ -10,7 +10,7 @@ statNames = ["Attack", "Speed", "Defense", "MPower", "Health"]
 classStats = [
     [2, 5, 4, 80, 60],
     [8, 6, 6, 60, 80],
-    [8, 12, 5, 0, 80],
+    [8, 12, 5, 0, 70],
     [10, 7, 8, 0, 100]
 ]
 
@@ -182,7 +182,7 @@ def useItem(inventory, player_stats):
         count = inventory.count(item)
         print(f"{i}) {item} (x{count})")
 
-    choice = input("Enter the number of the item to use or press Enter to cancel: ").strip()
+    choice = input("Enter quantity to use or press Enter to cancel: ").strip()
     if choice == "":
         print("No item used.")
         return
@@ -225,7 +225,7 @@ def applyItemEffect(item_name, player_stats, inventory):
         possible_stats = [0, 1, 2, 4]  # Attack, Speed, Defense, Health
         chosen_stat = random.choice(possible_stats)
         player_stats[chosen_stat] += 1
-        print(f"You used a {item_name}! Your {statNames[chosen_stat]} increased by 1!")
+        print(f"Used {item_name}! {statNames[chosen_stat]} increased by 1!")
         # Show new stats
         print("Your updated stats:")
         for i, stat in enumerate(statNames):
@@ -236,6 +236,8 @@ def applyItemEffect(item_name, player_stats, inventory):
 # -----------------------------------
 # Combat Mechanics
 # -----------------------------------
+
+
 def combat(player_stats, monster_stats, monster_highest_stat_index):
     """
     Simulate a combat scenario between player and monster.
@@ -248,14 +250,15 @@ def combat(player_stats, monster_stats, monster_highest_stat_index):
 
         if player_action == "Attack":
             p_damage = (player_stats[monster_highest_stat_index] -
-                            monster_stats[monster_highest_stat_index])
-            player_damage = max(1, p_damage)
+                        monster_stats[monster_highest_stat_index])
+            player_damage = max(1, p_damage)  # Always do at least 1 damage
             monster_stats[4] -= player_damage
             print(f"You attack the monster for {player_damage} damage. "
-                    f"Monster health: {monster_stats[4]}")
+                  f"Monster health: {monster_stats[4]}")
             if monster_stats[4] <= 0:
                 print("You defeated the monster!")
                 return True
+
         elif player_action == "Run":
             run_chance = random.random()
             if run_chance < 0.5:
@@ -263,8 +266,11 @@ def combat(player_stats, monster_stats, monster_highest_stat_index):
             else:
                 print("You successfully ran away!")
                 return None
+
         else:
             print("Invalid action. Please choose Attack or Run.")
+            # Skip monster turn if invalid action
+            continue
 
         # Monster attacks if still alive
         if monster_stats[4] > 0:
@@ -281,21 +287,27 @@ def combat(player_stats, monster_stats, monster_highest_stat_index):
 
 def monsterEncounter(player_stats, current_room_enc):
     """Handle encountering a monster in a given room."""
-    monster_types = ["Goblin", "Skeleton", "Orc", "Zombie"]
-    monster = random.choice(monster_types)
-    print("You encountered a", monster + "!")
-
-    # Randomize monster stats
-    monster_stats = [random.randint(3, 10) for _ in range(5)]
-    m_highest_index = monster_stats.index(max(monster_stats[:-1]))
-    print(f"Monster's highest stat index {m_highest_index}: "
-          f"{monster_stats[m_highest_index]}")
-    print("Monster Stats: "
-          f"Attack: {monster_stats[0]} "
-          f"Speed: {monster_stats[1]} "
-          f"Defense: {monster_stats[2]} "
-          f"MPower: {monster_stats[3]} "
-          f"Health: {monster_stats[4]}")
+    if current_room_enc == "Boss":
+        # Special Boss encounter
+        monster = "Boss"
+        # Boss stats: Attack=10, Speed=12, Defense=8, MPower=10, Health=40
+        monster_stats = [10, 12, 8, 10, 40]
+        print("You have entered the Boss Room! A mighty Boss awaits you!")
+    else:
+        monster_types = ["Goblin", "Skeleton", "Orc", "Zombie"]
+        monster = random.choice(monster_types)
+        print("You encountered a", monster + "!")
+        # Randomize monster stats
+        monster_stats = [random.randint(3, 10) for _ in range(5)]
+        m_highest_index = monster_stats.index(max(monster_stats[:-1]))
+        print(f"Monster's highest stat index {m_highest_index}: "
+              f"{monster_stats[m_highest_index]}")
+        print("Monster Stats: "
+              f"Attack: {monster_stats[0]} "
+              f"Speed: {monster_stats[1]} "
+              f"Defense: {monster_stats[2]} "
+              f"MPower: {monster_stats[3]} "
+              f"Health: {monster_stats[4]}")
 
     player_highest_stat_index = m_highest_index
     print(f"Player's highest stat index: {player_highest_stat_index}, "
@@ -304,32 +316,47 @@ def monsterEncounter(player_stats, current_room_enc):
     c_result = combat(player_stats, monster_stats, player_highest_stat_index)
     if c_result is True:
         print("You emerge victorious!")
-        # Increase the player's Attack, Speed, Defense, and Health by 2
-        # MPower (index 3) is not increased
+        # Increase player's stats
         player_stats[0] += 2  # Attack
         player_stats[1] += 2  # Speed
         player_stats[2] += 2  # Defense
         player_stats[4] += 2  # Health
 
         print("You feel stronger after this victory!")
-        print("Your Attack, Speed, Defense, and Health have each increased by 2.")
+        print("Your Attack, Speed, Defense, and Health all increased by 2.")
         print("Your new stats:")
         for i, stat in enumerate(statNames):
             print(f"{stat}: {player_stats[i]}")
-        
+
+        # Loot logic
+        loot_chance = random.random()
+        if loot_chance < 0.5:
+            gold_found = random.randint(10, 50)
+            global pMoney
+            pMoney += gold_found
+            print(f"You loot the {monster} and find {gold_found} gold!")
+            print(f"Your new balance is: {pMoney} gold.")
+        else:
+            possible_loot_items = ["potion", "burnHeal", "statBoost"]
+            dropped_item = random.choice(possible_loot_items)
+            inventory.append(dropped_item)
+            print(f"You find a {dropped_item} on the defeated {monster}!")
+            print("It's added to your inventory.")
+
+        return current_room_enc
+
     elif c_result is False:
         print("Game over!")
+        # Return a special value to indicate defeat
+        return "defeated"
     else:
         print("You successfully ran away!")
         return None
-
-    return current_room_enc
-
-
-
 # -----------------------------------
 # Shop / Vendor Functions
 # -----------------------------------
+
+
 def vendor_menu(player_stats, player_money, inv):
     """Allow buying and selling items from the vendor."""
     while True:
@@ -431,8 +458,14 @@ while inGameLoop and pStats[4] > 0:
                     # Random encounter chance
                     if random.random() < 0.9:
                         result = monsterEncounter(pStats, current_room)
-                        if result is None:
-                            # If player successfully ran away, teleport to random room
+                        if result == "defeated":
+                            # Player died in combat, end the game loop
+                            inGameLoop = False
+                            print("You were defeated. The game will now end.")
+                            # Teleport player to a random room
+                            break  # Break out of the exploration loop
+                        elif result is None:
+                            # Player ran away
                             current_room = random.choice(list(rooms.keys()))
                 except KeyError:
                     msg = "You can't go that way."
